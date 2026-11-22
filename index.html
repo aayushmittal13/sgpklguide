@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Singapore and KL Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday travel, bright and confident, the way a good city guidebook feels
+   IDEA a transit map and fold-out guide: each evening is a line of stops, each city its own colour
+   PICTURE one illustrated skyline: Supertrees, Marina Bay Sands and the Merlion, a flight arc, then Petronas and the Genting hills
+   COLOUR white ground, Singapore red #d42330, Malaysia rainforest green #0f6b4f, sun yellow #ffc23d as the one accent
+   TYPE Outfit 800 for display, Inter for text
+   LAYOUT title across the top, skyline full width beneath; city bands below, each with a stop line and a shop finder. Phone: everything stacks */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0f1215);--ink:light-dark(#15181c,#eef0f2);--soft:light-dark(#5b626b,#a9b0b8);--line:light-dark(#e3e6ea,#2a3037);--card:light-dark(#f6f7f9,#171b20);--sg:#d42330;--sgt:light-dark(#fdeced,#2a1416);--my:#0f6b4f;--myt:light-dark(#e6f3ee,#10231d);--sun:#ffc23d}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:64px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:Outfit,Inter,sans-serif;line-height:1.05;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,5.4vw,56px);font-weight:800}
+h2{font-size:clamp(28px,3.6vw,42px);font-weight:800}
+h3{font-size:20px;font-weight:700}
+p{margin:0 0 12px}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto}
+.band{padding-block:clamp(28px,4vw,64px);padding-inline:max(5vw,16px)}
+nav.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;gap:6px;overflow-x:auto;padding:10px max(5vw,16px);scrollbar-width:none}
+nav.top a{flex:none;text-decoration:none;font-weight:600;font-size:14px;padding:8px 12px;border-radius:99px;white-space:nowrap}
+nav.top a:hover,nav.top a:focus-visible{background:var(--card);outline:none}
+nav.top a.s{color:var(--sg)}nav.top a.m{color:var(--my)}
+header .wrap{display:grid;gap:14px}
+header .lede{font-size:18px;color:var(--soft);max-width:62ch}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--soft)}
+.facts b{color:var(--ink)}
+.sky{position:relative;height:clamp(240px,34vw,420px);border-block:1px solid var(--line)}
+.sky svg{position:absolute;inset:0;width:100%;height:100%}
+.city{color:#fff}
+.city.sgc{background:var(--sg)}.city.myc{background:var(--my)}
+.city p{color:rgba(255,255,255,.88);max-width:64ch;font-size:17px}
+.city h2{margin-bottom:14px}
+.city .tag{display:inline-block;background:var(--sun);color:#1a1a1a;font-weight:700;font-size:13px;padding:4px 10px;border-radius:99px;margin-bottom:14px}
+.grid2{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(20px,3vw,44px);align-items:start}
+.line{list-style:none;margin:18px 0 0;padding:0;position:relative}
+.line li{position:relative;display:grid;grid-template-columns:84px minmax(0,1fr);padding:0 0 18px}
+.line li::before{content:"";position:absolute;left:95.5px;top:10px;bottom:-10px;width:5px;background:var(--c)}
+.line li:last-child::before{display:none}
+.line li::after{content:"";position:absolute;left:89.5px;top:3px;width:17px;height:17px;border-radius:50%;background:var(--bg);border:4px solid var(--c);box-sizing:border-box}
+.line time{font-family:Outfit,sans-serif;font-weight:700;font-size:17px;white-space:nowrap;text-align:right;padding-right:6px}
+.line .stop{padding-left:30px}
+.line .stop b{display:block;font-size:17px}
+.line .stop span{color:var(--soft);font-size:15px}
+.sgl{--c:var(--sg)}.myl{--c:var(--my)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.card h3{margin-bottom:6px}
+.card p{font-size:15px;color:var(--soft);margin:0}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.pill{font-size:13px;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--bg);border:1px solid var(--line);white-space:nowrap}
+.note{font-size:14px;color:var(--soft);margin-top:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+.chips button{font:600 15px Inter,sans-serif;min-height:44px;padding:8px 16px;border-radius:99px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--c);border-color:var(--c);color:#fff}
+.chips button:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{text-align:left;font-weight:600;font-size:13px;color:var(--soft);padding:8px 10px;border-bottom:2px solid var(--line)}
+td{padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child b{display:block;font-size:16px}
+td:first-child small{color:var(--soft)}
+.brands{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:16px}
+.brand{border-left:5px solid var(--c);background:var(--card);border-radius:0 12px 12px 0;padding:12px 14px}
+.brand b{display:block}
+.brand span{font-size:14px;color:var(--soft)}
+.plan{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:18px}
+.day{border-radius:14px;padding:16px 18px;border:1px solid var(--line)}
+.day.s{background:var(--sgt)}.day.m{background:var(--myt)}
+.day h3 small{display:block;font:600 13px Inter,sans-serif;color:var(--soft);margin-bottom:4px;letter-spacing:0}
+.day ul{margin:8px 0 0;padding-left:18px;font-size:15px}
+ .zone{margin-top:26px}
+.zone h3{font-size:22px;color:var(--sg);margin-bottom:4px}
+.zone>p{color:var(--soft);margin:0 0 10px;font-size:15px}
+.zone .cards{margin-top:8px}
+.daypanel{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(20px,3vw,44px);margin-top:18px;align-items:start}
+.daypanel .head{grid-column:1/-1;border-radius:14px;padding:18px 20px;color:#fff}
+.daypanel .head small{display:block;font-weight:600;opacity:.9}
+.daypanel .head h3{font-size:clamp(22px,3vw,30px);color:#fff;margin-top:4px}
+.daypanel .altwrap{grid-column:1;border-top:2px dashed var(--line);padding-top:18px}
+.alth{margin-bottom:14px}
+.daypanel .side{grid-column:2;grid-row:2/span 2;display:grid;gap:12px}
+.daypanel .box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.daypanel .box h4{margin:0 0 6px;font:700 16px Outfit,sans-serif}
+.daypanel .box ul{margin:0;padding-left:18px;font-size:15px}
+.line .veg-tag{display:inline-block;margin-left:6px;font-size:12px;font-weight:700;color:#0f6b4f;background:#e6f3ee;padding:1px 7px;border-radius:99px;vertical-align:2px}
+@media(max-width:820px){.daypanel{grid-template-columns:minmax(0,1fr)}.daypanel .side,.daypanel .altwrap{grid-column:1;grid-row:auto}}
+.veg{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px;margin-top:16px}
+.tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:12px 28px;margin-top:16px;padding:0;list-style:none}
+.tips li{border-top:2px solid var(--ink);padding-top:10px;font-size:15px}
+.tips b{display:block;font-family:Outfit,sans-serif;font-size:17px}
+footer{border-top:1px solid var(--line);font-size:14px;color:var(--soft)}
+@media(max-width:820px){.grid2{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.line li{grid-template-columns:72px minmax(0,1fr)}.line li::before{left:83.5px}.line li::after{left:77.5px}.line time{font-size:15px}.line .stop{padding-left:28px}table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{border:0;padding:3px 0}.stack td:not(:first-child)::before{content:attr(data-l) ": ";font-weight:600;color:var(--soft)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.plane{display:none}}
+</style>
+</head>
+<body>
+<nav class="top" aria-label="Sections"><div class="wrap">
+<a href="#plan">Day by day plan</a>
+<a class="s" href="#sg-sights">Singapore sights</a>
+<a class="s" href="#sentosa">Sentosa</a>
+<a class="s" href="#sg-shop">Singapore shopping</a>
+<a class="s" href="#sg-local">Local SG brands</a>
+<a class="m" href="#my-sights">Malaysia sights</a>
+<a class="m" href="#my-shop">Malaysia shopping</a>
+<a href="#niche">Niche picks</a>
+<a href="#veg">Vegetarian food</a>
+<a href="#tips">Before you go</a>
+</div></nav>
+
+<header class="band"><div class="wrap">
+<h1>Singapore and Kuala Lumpur: the sights, the malls, and where to eat veg</h1>
+<p class="lede">Four days in Singapore, two in Malaysia. Every touristy thing worth doing, a mall by mall shopping guide with which brand to buy where, and pure vegetarian food for each day.</p>
+<div class="facts"><span><b>4 days</b> Singapore</span><span><b>2 days</b> Kuala Lumpur and Genting</span><span><b>1 hr</b> flight between them</span><span><b>Veg</b> picks for every day</span></div>
+</div></header>
+
+<div class="sky" aria-hidden="true"><svg id="sky" viewBox="0 0 1200 420" preserveAspectRatio="xMidYMax slice"></svg></div>
+
+<section class="band" id="plan"><div class="wrap">
+<h2>Day by day plan</h2>
+<p style="color:var(--soft);margin-top:10px;max-width:66ch">Hour by hour, with where to eat veg and how to get between stops. Pick a day.</p>
+<div class="chips" id="dayTabs" role="tablist" aria-label="Choose a day"></div>
+<div id="dayPanel" class="daypanel"></div>
+</div></section>
+
+<section class="band city sgc" id="sg-sights"><div class="wrap">
+<span class="tag">Singapore</span>
+<h2>Two evenings that cover every icon</h2>
+<p>Day 1 evening is Marina Bay: the Jurassic dinosaurs in the Cloud Forest, the giant Supertrees, the rooftop at Marina Bay Sands and both light shows. Day 2 evening is the river: the Merlion, then a slow walk up the Singapore River past Boat Quay to Clarke Quay and Robertson Quay.</p>
+</div></section>
+
+<section class="band"><div class="wrap grid2">
+<div>
+<h3>Day 1 evening: Marina Bay</h3>
+<ol class="line sgl" id="sgLine"></ol>
+<h3 style="margin-top:28px">Day 2 evening: the Merlion and the river walk</h3>
+<ol class="line sgl" id="rvLine"></ol>
+<p class="note">Show times are the usual ones. Check them on the day, since they shift for events.</p>
+</div>
+<div>
+<h3>Everything else worth a slot</h3>
+<div class="cards" id="sgMore" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr))"></div>
+</div>
+</div></section>
+
+<section class="band" id="sentosa" style="background:var(--sgt)"><div class="wrap">
+<h2>Sentosa: everything worth doing, zone by zone</h2>
+<p style="color:var(--soft);margin-top:10px;max-width:66ch">The island splits into four areas, joined by the cable car, the free beach trams and the monorail. Day 3 above runs through them in a sensible order.</p>
+<div id="sentosaZones"></div>
+<p class="note">Prices are rough guides from booking sites in 2026. Combo tickets on the cable car, luge, SkyHelix and Madame Tussauds usually save money.</p>
+</div></section>
+
+<section class="band" id="sg-shop" style="background:var(--sgt)"><div class="wrap">
+<h2>Singapore shopping: which mall for what</h2>
+<p style="color:var(--soft);max-width:66ch;margin-top:10px">Nearly every big mall sits on an MRT station, and most open 10 am to 10 pm. Tap what you want to buy and the list narrows to the right places.</p>
+<div class="chips sgl" id="sgChips" role="group" aria-label="Filter Singapore malls"></div>
+<div class="scroll"><table class="stack"><thead><tr><th>Mall or area</th><th>Best for</th><th>Price level</th><th>Nearest MRT</th></tr></thead><tbody id="sgMalls"></tbody></table></div>
+<h3 style="margin-top:34px" id="sg-local">Local Singapore brands to shop</h3>
+<p style="color:var(--soft);margin:8px 0 0;max-width:66ch">Singapore labels are the buys you cannot get as easily at home. Charles and Keith first.</p>
+<div id="sgBrands" style="margin-top:12px"></div>
+</div></section>
+
+<section class="band city myc" id="my-sights"><div class="wrap">
+<span class="tag">Malaysia</span>
+<h2>KL by night, Genting by day</h2>
+<p>Kuala Lumpur's big sights cluster around the Petronas Towers and Bukit Bintang, joined by a covered walkway. Genting is an hour up into the cool rainforest, with the outlets at the bottom of the cable car and the resort at the top.</p>
+</div></section>
+
+<section class="band"><div class="wrap grid2">
+<div>
+<h3>The KLCC to Bukit Bintang evening</h3>
+<ol class="line myl" id="myLine"></ol>
+<h3 style="margin-top:28px">The Genting day</h3>
+<ol class="line myl" id="gtLine"></ol>
+</div>
+<div>
+<h3>Also on the list</h3>
+<div class="cards" id="myMore" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr))"></div>
+</div>
+</div></section>
+
+<section class="band" id="my-shop" style="background:var(--myt)"><div class="wrap">
+<h2>Malaysia shopping: which mall for what</h2>
+<p style="color:var(--soft);max-width:66ch;margin-top:10px">The ringgit makes most things cheaper than in Singapore. Do luxury at KLCC or TRX, everyday fashion in Bukit Bintang, outlet brands at Genting and souvenirs at the markets.</p>
+<div class="chips myl" id="myChips" role="group" aria-label="Filter Malaysia malls"></div>
+<div class="scroll"><table class="stack"><thead><tr><th>Mall or area</th><th>Best for</th><th>Price level</th><th>Getting there</th></tr></thead><tbody id="myMalls"></tbody></table></div>
+<h3 style="margin-top:34px">Which brand to buy in Malaysia</h3>
+<div class="brands myl" id="myBrands"></div>
+</div></section>
+
+<section class="band" id="niche" style="background:var(--card)"><div class="wrap">
+<h2>Niche picks most tourists miss</h2>
+<p style="color:var(--soft);margin-top:10px;max-width:66ch">Reddit would not load through search, so these come from local guides and travel forum write ups. Each one says which day it fits into.</p>
+<h3 style="margin-top:22px;color:var(--sg)">Singapore</h3>
+<div class="cards" id="sgNiche"></div>
+<h3 style="margin-top:30px;color:var(--my)">Kuala Lumpur</h3>
+<div class="cards" id="myNiche"></div>
+</div></section>
+
+<section class="band" id="veg"><div class="wrap">
+<h2>Pure vegetarian, city by city</h2>
+<div class="veg">
+<div><h3 style="color:var(--sg)">Singapore</h3><div class="scroll"><table class="stack"><thead><tr><th>Place</th><th>Area</th><th>Order</th></tr></thead><tbody id="sgVeg"></tbody></table></div></div>
+<div><h3 style="color:var(--my)">Kuala Lumpur and Genting</h3><div class="scroll"><table class="stack"><thead><tr><th>Place</th><th>Area</th><th>Order</th></tr></thead><tbody id="myVeg"></tbody></table></div></div>
+</div>
+<p class="note">At Chinese hawker stalls look for the sign 素食 (vegetarian), say no egg and ask about fish sauce. Sentosa, Mandai and Genting have thin veg options, so carry snacks there.</p>
+</div></section>
+
+<section class="band" id="tips"><div class="wrap">
+<h2>Before you go</h2>
+<ul class="tips">
+<li><b>Visas</b>Indian passports need a Singapore visa, applied through an authorised agent. Malaysia has allowed Indians in visa free for short stays through 2026; confirm when you book.</li>
+<li><b>Arrival cards</b>SG Arrival Card (ICA site or MyICA app) and the Malaysia Digital Arrival Card, each within 3 days before landing. Both free.</li>
+<li><b>Tax back in Singapore</b>Ask stores for an eTRS GST refund when you cross the minimum spend, then claim at Changi before security.</li>
+<li><b>Getting around</b>Singapore: tap a contactless Visa or Mastercard on MRT and buses. KL: Grab for most trips, MRT and monorail around the centre.</li>
+<li><b>Book ahead</b>SkyPark deck after 4 pm (timed entry), Night Safari, Cloud Forest combo, Genting SkyWorlds and the cable car on weekends.</li>
+<li><b>Weather</b>November to December brings short afternoon showers in both countries. Keep the malls, Jewel and Skytropolis as rain plans.</li>
+<li><b>Bargaining</b>Bugis Street: a little. Petaling Street: a lot, start near half the asking price. Malls: never.</li>
+<li><b>Electronics</b>Buy at Apple stores, Mustafa or big chains. Travel forums keep warning tourists off pushy shops at Sim Lim Square.</li>
+</ul>
+</div></section>
+
+<footer class="band"><div class="wrap">
+<p>Prices and timings are approximate and were checked in November 2026 against Gardens by the Bay, Resorts World Genting, Time Out, Traveloka and similar guides. Reddit threads did not come through in search, so forum advice is the common thread across travel forums.</p>
+</div></footer>
+
+<script>
+{
+const sgLine=[
+["4:30 pm","Cloud Forest with Jurassic World","Life size animatronic dinosaurs, including an 8.5 m Brachiosaurus, inside the misty dome. Flower Dome is next door. Combo about S$46 for a non resident adult."],
+["5:45 pm","Supertree Grove by daylight","The giant trees. Pay for the OCBC Skyway walk between them if the queue is short."],
+["6:15 pm","Marina Bay Sands rooftop","SkyPark Observation Deck, levels 56 to 57, about 200 m up. Sunset slot. Timed tickets after 4 pm, so book."],
+["7:45 pm","Garden Rhapsody at the Supertrees","Free light and music show. Lie back on the ground. Repeats at 8:45 pm."],
+["9:00 pm","Spectra light show","Free lasers, water and music at the Event Plaza in front of Marina Bay Sands. Also 8 pm, plus 10 pm on Fri and Sat."]
+];
+const rvLine=[
+["6:30 pm","Merlion Park","Sunset photos with Marina Bay Sands across the water."],
+["7:00 pm","Cavenagh Bridge","Old suspension bridge with the bronze People of the River sculptures nearby, including boys jumping into the river."],
+["7:15 pm","Boat Quay","The oldest quay, where Raffles first landed. Shophouse bars facing the bank towers."],
+["7:45 pm","Clarke Quay","Lit up warehouses, riverside dinner and the evening crowd."],
+["8:30 pm","Bumboat river cruise","About 40 minutes from the Clarke Quay jetty out to Marina Bay and back."],
+["9:15 pm","Walk on to Robertson Quay","Quieter stretch past the painted Alkaff Bridge. Clarke Quay MRT or a Grab home."]
+];
+const sgMore=[
+["Jewel Changi","Rain Vortex, the world's tallest indoor waterfall, plus Canopy Park. Do it before your flight out.","Free","2 hrs"],
+["Sentosa","Luge, Madame Tussauds, SkyHelix, MegaZip, beaches, the Oceanarium and Universal Studios. Full guide in the Sentosa section below.","Paid","Full day"],
+["Night Safari","Tram and walking trails through the nocturnal zoo. Near the top of every forum list.","Book","Evening"],
+["Bird Paradise and Rainforest Wild","The newest Mandai parks. Rainforest Wild Adventure added treetop and ravine courses in May 2026.","Paid","Half day"],
+["Chinatown","Buddha Tooth Relic Temple, Sri Mariamman Temple, street market for cheap souvenirs.","Free","3 hrs"],
+["Little India and Kampong Gelam","Sri Veeramakaliamman Temple, Tekka Centre, Sultan Mosque and the murals of Haji Lane.","Free","3 hrs"],
+["Pinnacle@Duxton skybridge","Rooftop garden on public housing with a skyline view for a small fee.","Small fee","1 hr"],
+["Singapore Botanic Gardens","UNESCO site, free entry, best early morning.","Free","2 hrs"]
+];
+const sgMalls=[
+["The Shoppes at Marina Bay Sands","Marina Bay","Luxury flagships, the indoor canal, Apple's floating sphere store","Luxury","Bayfront",["lux","tech","local","local"]],
+["ION Orchard","Orchard Road","Luxury and premium labels, beauty, Bacha Coffee and TWG for gifts","Luxury","Orchard",["lux","beauty","gifts","local"]],
+["Ngee Ann City (Takashimaya)","Orchard Road","Department store, big Kinokuniya bookshop, premium brands under one roof","Premium","Orchard",["lux","fashion"]],
+["Paragon","Orchard Road","Designer boutiques, quieter than ION","Luxury","Orchard",["lux"]],
+["313@somerset and Orchard Central","Orchard Road","High street fashion at Somerset, younger crowd","Mid","Somerset",["fashion","local"]],
+["Bugis Junction and Bugis+","Bugis","Affordable fashion and local brands","Budget to mid","Bugis",["fashion","budget","local"]],
+["Bugis Street","Bugis","Cheap clothes, bags, keychains, souvenirs. Light bargaining","Budget","Bugis",["budget","gifts"]],
+["Mustafa Centre","Little India","Open 24 hours. Chocolates, perfume, electronics, gold, gifts to carry home","Budget","Farrer Park",["budget","tech","gifts","beauty"]],
+["VivoCity","HarbourFront","Singapore's largest mall, mid range brands, gateway to Sentosa","Mid","HarbourFront",["fashion","family","local"]],
+["Jewel Changi","Changi Airport","Airport mall with the waterfall. Good last stop for gifts and snacks","Mid","Changi Airport",["gifts","family"]],
+["Funan","City Hall","Tech and gadget mall, safer than the old electronics haunts","Mid","City Hall",["tech"]],
+["Chinatown Street Market","Chinatown","Souvenirs, magnets, fridge art at the best prices","Budget","Chinatown",["budget","gifts"]]
+];
+const sgCats=[["all","Everything"],["local","Local SG brands"],["lux","Luxury"],["fashion","Fashion"],["tech","Electronics"],["beauty","Beauty and perfume"],["gifts","Gifts and food"],["budget","Budget"],["family","Families"]];
+const sgBrands=[
+["Charles and Keith","Bags, heels, flats, sunglasses","Every big mall: ION, VivoCity, Jewel, Bugis Junction, MBS","The famous Singapore label. Prices usually well below the same pieces in India, and new styles land here first."],
+["Pedro","Leather shoes, bags, wallets, men and women","ION, VivoCity, Jewel, most big malls","Charles and Keith's sister brand, a step up in leather and price."],
+["Love Bonito","Womenswear, workwear, dresses","Orchard (313@somerset area), VivoCity, Jewel","Singapore brand cut for Asian sizes."],
+["In Good Company","Minimal womenswear and menswear","Orchard Road malls","Clean, well made basics from a local label."],
+["Benjamin Barker","Men's shirts, suits, smart casual","Orchard Road and city malls","Local menswear, good value for tailored fits."],
+["Beyond the Vines","Dumpling bags, totes, bright basics","Jewel and city malls","The cult crossbody bag everyone carries in Singapore."],
+["TWG Tea","Tea in gift tins, tea flavoured macarons","ION, MBS, Changi","Singapore luxury tea house. The classic gift."],
+["Bacha Coffee","Coffee bags and gift boxes","ION, MBS, Changi","Moroccan styled coffee house born in Singapore."],
+["Bengawan Solo","Kueh, pandan cake, cookies","Changi Airport and many malls","Heritage cake shop. Many items contain egg, so check labels."],
+["Tiger Balm","Balms and patches","Mustafa, supermarkets, pharmacies","Born in Singapore. Cheapest at Mustafa."],
+["Irvins","Salted egg chips","Changi, malls","Contains egg, so only a gift for non vegetarian friends."],
+["Global luxury","LV, Dior, Chanel and the rest","MBS, ION, Paragon","With the GST refund, often cheaper than India. Compare first."]
+];
+const myLine=[
+["6:00 pm","Suria KLCC","Luxury mall at the base of the Petronas Towers. Open till 10 pm."],
+["7:00 pm","Petronas Twin Towers","Photos from KLCC Park as the towers light up. The skybridge and deck need a timed ticket booked ahead."],
+["8:00 pm","Lake Symphony fountain","Free music and water show on the park lake in front of the towers."],
+["8:45 pm","Covered walkway to Pavilion","About 15 minutes on the elevated, air conditioned walkway into Bukit Bintang."],
+["9:15 pm","Pavilion and Bukit Bintang","700 plus shops across ten levels, then the street lights of Bukit Bintang."]
+];
+const gtLine=[
+["9:15 am","Awana SkyWay cable car","About 10 minutes over the rainforest. Return from around RM18. Free stop at Chin Swee Caves Temple."],
+["10:30 am","Genting SkyWorlds outdoor park","The big outdoor theme park at the top. Most of the day here. Reported closed on Tuesdays."],
+["1:00 pm","SkyAvenue","Mall at the top for lunch and a break. Skytropolis indoor park if it rains."],
+["4:45 pm","Genting Highlands Premium Outlets","130 plus designer brands at outlet prices, at the base station. Open till 10 pm."],
+["8:15 pm","Back in KL: River of Life and Petaling Street","Blue lit river at Masjid Jamek, then the night market."]
+];
+const myMore=[
+["Merdeka Square","Colonial buildings and the giant flagpole. Short walk from Central Market.","Free","1 hr"],
+["Thean Hou Temple","Six tiered Chinese temple with city views. Prettiest at dusk with lanterns.","Free","1 hr"],
+["KL Tower","Older observation tower with a good view of the Petronas Towers themselves.","Paid","1 hr"],
+["Aquaria KLCC","Walk through shark tunnel under the convention centre. Rain plan.","Paid","2 hrs"],
+["Chin Swee Caves Temple","Hillside temple on the Genting cable car route. Cool air and clouds.","Free","45 min"],
+["Jalan Alor","The famous food street. Mostly meat, so walk it for the atmosphere and eat veg nearby.","Free","1 hr"]
+];
+const myMalls=[
+["Suria KLCC","KLCC","Luxury brands, Kinokuniya, under the Petronas Towers","Luxury","KLCC LRT",["lux","gifts"]],
+["The Exchange TRX","Tun Razak Exchange","Newest premium mall, big international names","Luxury","TRX MRT",["lux","fashion"]],
+["Pavilion Kuala Lumpur","Bukit Bintang","The all rounder: 700 plus shops from luxury to high street","Premium","Bukit Bintang MRT",["lux","fashion","beauty"]],
+["Lot 10","Bukit Bintang","Upmarket fashion and Japanese goods","Premium","Bukit Bintang MRT",["fashion"]],
+["Fahrenheit 88","Bukit Bintang","Mid range fashion and local labels","Mid","Bukit Bintang MRT",["fashion","budget"]],
+["Sungei Wang Plaza and BB Plaza","Bukit Bintang","Bargains: phone accessories, cheap clothes, small gadgets","Budget","Bukit Bintang MRT",["budget","tech"]],
+["Mid Valley Megamall and The Gardens","Mid Valley","Huge mall pair, everything mid range, near KL Sentral","Mid","Mid Valley KTM",["fashion","family"]],
+["Genting Highlands Premium Outlets","Genting base","Outlet prices on international labels, sportswear and bags","Mid","Bus or Grab, 1 hr",["outlet","fashion"]],
+["Petaling Street","Chinatown","Knock offs, souvenirs, street snacks. Bargain hard","Budget","Pasar Seni LRT",["budget","gifts"]],
+["Central Market","Chinatown","Batik, crafts, pewter and better quality souvenirs","Mid","Pasar Seni LRT",["gifts"]]
+];
+const myCats=[["all","Everything"],["lux","Luxury"],["fashion","Fashion"],["outlet","Outlets"],["tech","Gadgets"],["beauty","Beauty"],["gifts","Gifts and crafts"],["budget","Budget"],["family","Families"]];
+const myBrands=[
+["Vincci","Malaysian shoes and bags at low prices. Pavilion, Mid Valley and most malls."],
+["Padini","Malaysian budget fashion group. Good for basics."],
+["Royal Selangor","Pewter from Kuala Lumpur. Classic gift. Central Market and KLCC."],
+["Beryl's","Malaysian chocolate. Easy gift to carry."],
+["Batik","Shirts, scarves and sarongs. Best at Central Market."],
+["Outlet brands","Sportswear, bags and denim at Genting Premium Outlets. Check sizes before you buy, returns are hard."],
+["Old Town white coffee","Instant white coffee sachets. Any supermarket."],
+["Luxury","KLCC, TRX and Pavilion. Ringgit prices are often lower than Singapore's for the same piece."]
+];
+const days=[
+{k:"s",d:"Day 1",t:"Malls, Gardens by the Bay and the Marina Bay lights",
+ stops:[
+ ["10:00 am","Orchard Road","ION Orchard, then Ngee Ann City (Takashimaya) and Paragon. Hit Charles and Keith, Pedro and Love Bonito for local labels, then luxury and Kinokuniya."],
+ ["12:30 pm","Lunch at Nalan, City Hall","South Indian thali or dosa. MRT from Orchard to City Hall.",1],
+ ["1:30 pm","Bugis Street and Bugis Junction","Cheap clothes, bags and souvenirs, then local and high street brands."],
+ ["3:30 pm","The Shoppes at Marina Bay Sands","Luxury flagships, the indoor canal and the Apple sphere store. MRT to Bayfront."],
+ ["4:30 pm","Cloud Forest with Jurassic World","Dinosaurs in the misty dome, then Flower Dome next door."],
+ ["6:15 pm","Marina Bay Sands rooftop","SkyPark deck at sunset. Book the timed slot."],
+ ["7:45 pm","Garden Rhapsody","Free Supertree light show."],
+ ["9:00 pm","Spectra","Free light and water show at the Event Plaza."],
+ ["10:00 pm","Mustafa Centre, then dinner","Open 24 hours. Dinner at Ananda Bhavan on Syed Alwi Rd, opposite Mustafa.",1]],
+ move:["MRT all day: Orchard, City Hall, Bugis, Bayfront","Grab from Marina Bay to Mustafa (about 15 min)"],
+ cut:"Running late? Skip Bugis and do it on Day 2 after Kampong Gelam."},
+{k:"s",d:"Day 2",t:"Little India, Kampong Gelam, Chinatown and the river walk",
+ stops:[
+ ["8:30 am","Breakfast at Komala Vilas","Paper thosai and filter coffee on Serangoon Rd. Since 1947.",1],
+ ["9:30 am","Little India walk","Sri Veeramakaliamman Temple, Tekka Centre, the colourful House of Tan Teng Niah."],
+ ["11:00 am","Kampong Gelam","Sultan Mosque and the murals and boutiques of Haji Lane."],
+ ["12:45 pm","Lunch at MTR 1924","Rava idli and masala dosa. Closes mid afternoon, so do not be late.",1],
+ ["2:30 pm","Chinatown","Buddha Tooth Relic Temple, Sri Mariamman Temple, the street market."],
+ ["4:30 pm","Pinnacle@Duxton skybridge","Rooftop view over the city from public housing. Small fee."],
+ ["6:30 pm","Merlion Park","Sunset across the bay."],
+ ["7:00 pm","River walk: Cavenagh Bridge to Boat Quay","Bronze river sculptures, then the old shophouse quay."],
+ ["7:45 pm","Clarke Quay","Dinner by the river. Check menus for veg, or eat earlier in Chinatown.",1],
+ ["8:30 pm","Bumboat cruise","About 40 minutes on the river."],
+ ["9:15 pm","Robertson Quay","Walk on along the quiet upper river past Alkaff Bridge."]],
+ move:["Walkable from Little India to Kampong Gelam","MRT to Chinatown, then walk to Merlion Park and the river"],
+ cut:"Short on energy? Skip Pinnacle@Duxton and rest before the river evening."},
+{k:"s",d:"Day 3",t:"Sentosa: luge, Madame Tussauds, beaches and the night show",
+ stops:[
+ ["8:30 am","Henderson Waves (niche)","Wave shaped footbridge high above the forest on the Southern Ridges. Walk on to Mount Faber, about 20 minutes."],
+ ["9:30 am","Singapore Cable Car","Mount Faber Line across the harbour to Sentosa, then change to the Sentosa Line for Imbiah Lookout. A Sky Pass covers both lines."],
+ ["10:15 am","Skyline Luge and Skyride","Steer your own cart down forest tracks, then ride the chairlift back up with sea views. Buy at least 3 rides; the second run is when it gets fun."],
+ ["11:30 am","Madame Tussauds Singapore","Selfies with wax celebrities and Marvel heroes. The ticket also covers the Marvel 4D film and the Spirit of Singapore boat ride. Allow 90 minutes."],
+ ["1:00 pm","Lunch break","Veg is thin on Sentosa. Carry snacks or check menus at Resorts World and The Palawan.",1],
+ ["2:00 pm","SkyHelix Sentosa","Open air seat that spins up to 79 m above sea level for a 360 degree island view. 12 minutes, good for photos."],
+ ["2:30 pm","Sentosa Sensoryscape","Free walkway of gardens, light and sound linking Imbiah to Resorts World. Walk it rather than taking the bus."],
+ ["3:00 pm","Singapore Oceanarium","The new aquarium at Resorts World, replacing the old S.E.A. Aquarium. Allow about 2 hours."],
+ ["5:15 pm","Fort Siloso Skywalk, or MegaZip","Calm: the free 11 storey treetop walk to the WWII fort. Thrill: MegaZip, a 450 m zipline from 75 m up down to Siloso Beach at up to 60 kph (last rides around 6:30 pm)."],
+ ["6:15 pm","Palawan Beach","Beach tram along the coast. Cross the rope bridge to the Southernmost Point of Continental Asia lookout. Sunset here."],
+ ["7:40 pm","Wings of Time","Night show built over the open sea with fire, water jets and projection. Check the show time and book."],
+ ["9:00 pm","Dinner in Little India","Saravanaa Bhavan or Ananda Bhavan.",1]],
+ move:["Cable car in, Sentosa Express monorail out to VivoCity (HarbourFront MRT)","Free beach trams and island buses run between the zones"],
+ cut:"Want Universal Studios today instead? Do USS 10 am to 5 pm, then Palawan sunset and Wings of Time, and keep Day 4 for Mandai."},
+{k:"s",d:"Day 4",t:"Mandai wildlife day",
+ stops:[
+ ["8:30 am","Bird Paradise","Huge walk in aviaries. Mornings are cooler and the birds are livelier."],
+ ["11:30 am","Singapore Zoo","Open concept zoo. Carry snacks, veg food inside is limited.",1],
+ ["3:00 pm","Rainforest Wild Asia, or rest","Newest park with treetop and ravine courses. Or go back to the hotel and rest."],
+ ["7:15 pm","Night Safari","Tram ride plus the walking trails. Book the slot ahead."],
+ ["10:30 pm","Dinner","Grab back to Little India. Ananda Bhavan stays open late.",1]],
+ move:["Mandai Khatib shuttle from Khatib MRT, or Grab (about 30 min from the city)"],
+ cut:"Not into animals? Swap for Botanic Gardens, Tiong Bahru and a last round of shopping.",
+ alt:{name:"Option B: Universal Studios Singapore instead of Mandai",
+ stops:[
+ ["9:15 am","Sentosa Express from VivoCity","HarbourFront MRT, then the monorail to Resorts World station. Buy park tickets online the day before."],
+ ["9:45 am","Be at the gate before opening","Head to the back of the park first while queues are short: Transformers and Battlestar Galactica."],
+ ["12:30 pm","Lunch","Veg choices in the park are limited. Carry snacks, or eat a light meal at the park restaurants after checking menus.",1],
+ ["1:30 pm","Jurassic Park Rapids, Minion Land, Far Far Away","Water ride and the newer Minion zone in the hot part of the day."],
+ ["5:30 pm","Leave the park","Rest at the hotel or walk round Resorts World."],
+ ["7:40 pm","Wings of Time, or VivoCity","Night show on Siloso Beach, or shopping and dinner back at VivoCity."],
+ ["9:30 pm","Dinner in Little India","Ananda Bhavan or Saravanaa Bhavan.",1]],
+ note:"If you pick this, keep Day 3 as the lighter Sentosa day so you are not doing the same island twice in a row. Night Safari can move to Day 3 evening instead of Wings of Time."}},
+{k:"m",d:"Day 5",t:"Jewel Changi, fly to KL, malls and Petronas",
+ stops:[
+ ["8:00 am","Jewel Changi","Rain Vortex and Canopy Park. Claim your GST refund before security."],
+ ["11:00 am","Flight to Kuala Lumpur","About 1 hour in the air."],
+ ["1:30 pm","KLIA Ekspres to KL Sentral","Fastest way in. Then a short Grab to Bukit Bintang."],
+ ["2:30 pm","Lunch in Brickfields","Saravanaa Bhavan or Mr Naan and Mrs Idly, right by KL Sentral.",1],
+ ["4:00 pm","Pavilion, Lot 10, Sungei Wang","Premium, then upmarket, then bargains, all across one junction."],
+ ["6:30 pm","Covered walkway to KLCC","About 15 minutes, air conditioned."],
+ ["7:00 pm","Petronas Towers and KLCC Park","Photos as the towers light up."],
+ ["8:00 pm","Lake Symphony fountain","Free show on the park lake."],
+ ["8:45 pm","Suria KLCC","Luxury and Kinokuniya until 10 pm. Dinner in the mall food court, ask for veg.",1]],
+ move:["Grab for most hops, MRT between Bukit Bintang and KLCC"],
+ cut:"Late flight? Skip Sungei Wang and go straight to Pavilion."},
+{k:"m",d:"Day 6",t:"Genting Highlands: SkyWorlds, outlets and old KL by night",
+ stops:[
+ ["8:00 am","Leave KL for Genting","About an hour by Grab to Awana SkyCentral. Eat breakfast first, veg food up top is thin.",1],
+ ["9:15 am","Awana SkyWay cable car up","10 minutes over the rainforest. Hop off at Chin Swee Caves Temple, then carry on to the top."],
+ ["10:30 am","Genting SkyWorlds outdoor theme park","The big outdoor park at the top. Book online and use the SkyWorlds app for virtual queues. Reported closed on Tuesdays and when weather turns bad, so check."],
+ ["1:00 pm","Lunch break","SkyAvenue mall next door. Check menus for veg, or carry food.",1],
+ ["2:00 pm","Back in SkyWorlds","Finish the rides. Skytropolis indoor park is the rain plan."],
+ ["4:30 pm","Cable car down","Back to Awana SkyCentral at the base."],
+ ["4:45 pm","Genting Highlands Premium Outlets","130 plus designer brands at outlet prices. Open till 10 pm, so no rush."],
+ ["7:00 pm","Back to KL","About an hour by Grab."],
+ ["8:15 pm","River of Life at Masjid Jamek (niche)","Where KL began, lit blue at night with mist effects. Free."],
+ ["8:45 pm","Kwai Chai Hong and Petaling Street","Mural lane, then the night market. Bargain hard."],
+ ["9:15 pm","Dinner at The Hungry Tapir","Vegan Malaysian on Jalan Petaling. Closes around 10 pm.",1]],
+ move:["Hire a Grab or a car with driver for the day; easier than the bus with shopping bags","Express bus from KL Sentral to Awana is the budget way"],
+ cut:"Batu Caves did not fit with a full SkyWorlds day. Add it at 7:30 am on Day 5 if your flight lands early, or skip Kwai Chai Hong tonight. Flying out tonight? Go from the outlets straight to KLIA (about 1.5 to 2 hrs)."}
+];
+const sentosa=[
+{z:"Imbiah Lookout",d:"The middle of the island, on the Sentosa Line of the cable car. Most of the fun rides are here.",items:[
+["Skyline Luge and Skyride","Gravity carts you steer yourself down forest tracks, then a chairlift back up. At night the tracks light up in colour.","From about S$37","1 to 1.5 hrs"],
+["Madame Tussauds Singapore","Wax figures of global and Asian stars plus Marvel heroes. Includes a Marvel 4D film and the Spirit of Singapore boat ride through local history.","From about S$20","1.5 hrs"],
+["SkyHelix Sentosa","Open air rotating seats rising to 79 m above sea level. The highest open air ride in Singapore.","About S$18 to S$20","15 min"],
+["Sentosa 4D AdventureLand","Motion seat 4D rides and a shooting game. A good rain plan.","Paid","1 hr"],
+["Singapore Cable Car","Two lines: Mount Faber Line over the harbour, Sentosa Line across the island. Sky Pass covers both.","Paid","30 min"]]},
+{z:"Siloso Point and Siloso Beach",d:"The west end. Thrill rides, the old fort and the liveliest beach.",items:[
+["MegaZip at Mega Adventure Park","450 m zipline from 75 m up over the jungle to Siloso Beach at up to 60 kph. Also MegaClimb, MegaJump and MegaBounce. Register online first.","About S$60","1 hr"],
+["Fort Siloso and the Skywalk","Free 181 m long walkway 11 storeys above the ground, ending at a WWII coastal fort with tunnels and old guns.","Free","1 hr"],
+["iFly Singapore","Indoor skydiving in a wind tunnel. No experience needed.","Paid","1.5 hrs"],
+["Skypark Sentosa by AJ Hackett","Bungy jump over the beach, and the new Skyslides that opened in June 2026.","Paid","1 hr"],
+["Siloso Beach","Beach bars, volleyball and sunsets.","Free","Any time"]]},
+{z:"Resorts World Sentosa",d:"The big resort by the monorail station: theme parks, the aquarium and the night show.",items:[
+["Universal Studios Singapore","Hollywood, Sci Fi City (Transformers, Battlestar Galactica), Jurassic Park, Minion Land and Far Far Away. Get there before opening. Express Pass if it is busy.","Paid","Full day"],
+["Singapore Oceanarium","The new, bigger aquarium that replaced the old S.E.A. Aquarium.","Paid","2 hrs"],
+["Sentosa Sensoryscape","Free landscaped walkway with light, sound and scent effects, linking Resorts World to Imbiah.","Free","20 min"],
+["Wings of Time","Night show staged over the sea with water jets, fire, lasers and 3D projection.","Paid","20 min"]]},
+{z:"Palawan and Tanjong beaches",d:"The quieter east side, reached by the free beach tram.",items:[
+["Southernmost Point of Continental Asia","Rope suspension bridge from Palawan Beach to a tiny islet with two lookout towers.","Free","30 min"],
+["Palawan Beach","Calm water, family friendly, food trucks at The Palawan.","Free","1 to 2 hrs"],
+["HyperDrive at The Palawan","Electric go karting on a multi level track.","About S$40","30 min"],
+["Tanjong Beach","The quietest beach, best for a relaxed sunset.","Free","Sunset"]]}
+];
+const sgNiche=[
+["Haw Par Villa","Free, very strange 1930s park of statues from Chinese folklore, including the graphic Ten Courts of Hell.","Day 3 or 4","Free"],
+["Henderson Waves","Wave shaped footbridge on the Southern Ridges walk to Mount Faber.","Day 3 morning","Free"],
+["Koon Seng Road, Joo Chiat","Pastel Peranakan shophouses, the best looking street in the east.","Spare morning","Free"],
+["Fort Canning tree tunnel","Spiral staircase looking up through the trees. Short walk from Clarke Quay.","Day 2 evening","Free"],
+["Marina Barrage rooftop","Grass roof facing the skyline. Locals fly kites there at sunset.","Day 1 swap","Free"],
+["Esplanade rooftop","Free terrace with a view of Marina Bay Sands, close to the Merlion.","Day 2 evening","Free"],
+["MacRitchie TreeTop Walk","Suspension bridge through the rainforest canopy. About 10 km round trip, go early.","Day 4 swap","Free"],
+["Pulau Ubin","Bumboat to an island of old village houses and cycling trails.","Extra day","Small fee"]
+];
+const myNiche=[
+["River of Life, Masjid Jamek","Blue lit river confluence where KL was founded. Best after dark.","Day 6 evening","Free"],
+["Kwai Chai Hong","Restored lane of murals and old shophouse fronts behind Petaling Street.","Day 6 evening","Free"],
+["REXKL and BookXcess","Old cinema turned into a book maze and creative space in Chinatown.","Day 6 evening","Free"],
+["Thean Hou Temple","Six tiered temple on a hill, lanterns at dusk.","Day 5 swap","Free"],
+["Perdana Botanical Gardens","Big green park in the city with lakes and walking paths.","Spare morning","Free"],
+["KL Forest Eco Park","Canopy walk through jungle right below KL Tower.","Spare morning","Small fee"],
+["Bank Negara Museum","Free museum of money and Malaysian art. Rain plan.","Rain plan","Free"]
+];
+const sgVeg=[
+["Komala Vilas","Serangoon Rd, Little India","Paper thosai, ghee masala dosa. Since 1947"],
+["MTR 1924","438 Serangoon Rd","Rava idli, masala dosa"],
+["Ananda Bhavan","Syed Alwi Rd, opp Mustafa","South and North Indian. Open since 1924"],
+["Nalan","City Hall, Little India","Thali and dosa, central location"],
+["Saravanaa Bhavan","Little India","Mini tiffin, open late"],
+["Shivam","Little India","Gujarati thali"],
+["Whole Earth","Check current address","Plant based Peranakan and Thai, Michelin Bib Gourmand"]
+];
+const myVeg=[
+["Saravanaa Bhavan","Brickfields, Masjid India","South Indian staples"],
+["MTR 1924","Jalan Thambipillay, Brickfields","Same menu as back home"],
+["Mr Naan and Mrs Idly","Brickfields","Cheap, North and South Indian"],
+["Annalakshmi","Jalan Berhala, Brickfields","Indian vegetarian buffet"],
+["The Hungry Tapir","Jalan Petaling","Vegan Malaysian, right by the night market"],
+["Genting","Top and base","Few veg options. Eat before you go up"]
+];
+const $=id=>document.getElementById(id);
+const line=a=>a.map(([t,b,s])=>`<li><time>${t}</time><div class="stop"><b>${b}</b><span>${s}</span></div></li>`).join('');
+const cards=a=>a.map(([h,p,c,d])=>`<div class="card"><h3>${h}</h3><p>${p}</p><div class="meta"><span class="pill">${c}</span><span class="pill">${d}</span></div></div>`).join('');
+const brands=a=>a.map(([b,s])=>`<div class="brand"><b>${b}</b><span>${s}</span></div>`).join('');
+const rows3=a=>a.map(([p,ar,o])=>`<tr><td><b>${p}</b></td><td data-l="Area">${ar}</td><td data-l="Order">${o}</td></tr>`).join('');
+$('sgLine').innerHTML=line(sgLine);$('myLine').innerHTML=line(myLine);$('gtLine').innerHTML=line(gtLine);
+$('sgMore').innerHTML=cards(sgMore);$('myMore').innerHTML=cards(myMore);
+$('sgBrands').innerHTML=`<div class="scroll"><table class="stack"><thead><tr><th>Brand</th><th>What to buy</th><th>Where</th><th>Why it is worth it</th></tr></thead><tbody>${sgBrands.map(([b,w,wh,y])=>`<tr><td><b>${b}</b></td><td data-l="Buy">${w}</td><td data-l="Where">${wh}</td><td data-l="Why">${y}</td></tr>`).join('')}</tbody></table></div>`;$('myBrands').innerHTML=brands(myBrands);
+$('sgVeg').innerHTML=rows3(sgVeg);$('myVeg').innerHTML=rows3(myVeg);
+$('rvLine').innerHTML=line(rvLine);
+$('sgNiche').innerHTML=cards(sgNiche);
+$('sentosaZones').innerHTML=sentosa.map(z=>`<div class="zone"><h3>${z.z}</h3><p>${z.d}</p><div class="cards">${cards(z.items)}</div></div>`).join('');$('myNiche').innerHTML=cards(myNiche);
+const dayLine=a=>a.map(([t,b,x,v])=>`<li><time>${t}</time><div class="stop"><b>${b}${v?'<span class="veg-tag">Veg</span>':''}</b><span>${x}</span></div></li>`).join('');
+let curDay=0;
+const showDay=i=>{
+ curDay=i;const D=days[i],col=D.k==='s'?'var(--sg)':'var(--my)';
+ $('dayTabs').innerHTML=days.map((x,j)=>`<button type="button" role="tab" id="tab-${j+1}" aria-selected="${j===i}" aria-pressed="${j===i}" data-i="${j}" style="--c:${x.k==='s'?'var(--sg)':'var(--my)'}">${x.d} · ${x.k==='s'?'SG':'KL'}</button>`).join('');
+ $('dayPanel').innerHTML=`<div class="head" style="background:${col}"><small>${D.d} · ${D.k==='s'?'Singapore':'Malaysia'}</small><h3>${D.t}</h3></div><ol class="line ${D.k==='s'?'sgl':'myl'}" style="margin:0">${dayLine(D.stops)}</ol>${D.alt?`<div class="altwrap"><h3 class="alth">${D.alt.name}</h3><ol class="line sgl" style="margin:0">${dayLine(D.alt.stops)}</ol><p class="note">${D.alt.note}</p></div>`:''}<div class="side"><div class="box"><h4>Getting around</h4><ul>${D.move.map(m=>`<li>${m}</li>`).join('')}</ul></div><div class="box"><h4>If you need to cut</h4><ul><li>${D.cut}</li></ul></div><div class="box"><h4>Veg stops today</h4><ul>${D.stops.concat(D.alt?D.alt.stops:[]).filter(x=>x[3]).map(x=>`<li><b>${x[0]}</b> ${x[1]}</li>`).join('')}</ul></div></div>`;
+};
+$('dayTabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const i=+b.dataset.i;showDay(i);try{history.replaceState(null,'','#day-'+(i+1))}catch(_){location.hash='day-'+(i+1)}});
+const fromHash=()=>{const m=location.hash.match(/^#day-(\d)$/);if(m&&days[m[1]-1]){showDay(m[1]-1);document.getElementById('plan').scrollIntoView();}};
+showDay(0);fromHash();window.addEventListener('hashchange',fromHash);
+function finder(chipsId,bodyId,cats,malls,lastLabel){
+ let cur='all';
+ const render=()=>{
+  $(chipsId).innerHTML=cats.map(([k,n])=>`<button type="button" data-k="${k}" aria-pressed="${k===cur}">${n}</button>`).join('');
+  $(bodyId).innerHTML=malls.filter(m=>cur==='all'||m[5].includes(cur)).map(([n,a,b,p,mrt])=>`<tr><td><b>${n}</b><small>${a}</small></td><td data-l="Best for">${b}</td><td data-l="Price">${p}</td><td data-l="${lastLabel}">${mrt}</td></tr>`).join('');
+ };
+ $(chipsId).addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;cur=b.dataset.k;render();});
+ render();
+}
+finder('sgChips','sgMalls',sgCats,sgMalls,'MRT');
+finder('myChips','myMalls',myCats,myMalls,'Getting there');
+
+/* skyline */
+const sky=$('sky');
+let seed=7;const rnd=()=>(seed=seed*16807%2147483647)/2147483647;
+let g='<defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb36b"/><stop offset=".55" stop-color="#ffd9a8"/><stop offset="1" stop-color="#fff1dc"/></linearGradient><linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f7fa3"/><stop offset="1" stop-color="#174d6b"/></linearGradient><g id="tree"><path d="M-4 0 L-2 -70 L2 -70 L4 0Z" fill="#7a3b2e"/><path d="M-26 -78 Q0 -60 26 -78 L18 -88 Q0 -80 -18 -88Z" fill="#a24a36"/><path d="M-20 -86 Q0 -74 20 -86 L12 -94 Q0 -88 -12 -94Z" fill="#c15d40"/></g></defs>';
+g+='<rect width="1200" height="420" fill="url(#sk)"/><circle cx="600" cy="150" r="56" fill="#ffe7a0" opacity=".9"/>';
+for(let i=0;i<26;i++){const x=rnd()*1200,h=60+rnd()*110,w=26+rnd()*40;g+=`<rect x="${x}" y="${330-h}" width="${w}" height="${h}" fill="#e9b48a" opacity=".55"/>`;}
+/* Singapore: MBS */
+g+='<g transform="translate(150 0)"><rect x="0" y="170" width="40" height="160" fill="#c8d4dc"/><rect x="62" y="170" width="40" height="160" fill="#b9c7d1"/><rect x="124" y="170" width="40" height="160" fill="#c8d4dc"/><rect x="30" y="170" width="10" height="160" fill="#9fb0bc"/><rect x="92" y="170" width="10" height="160" fill="#9fb0bc"/><rect x="154" y="170" width="10" height="160" fill="#9fb0bc"/><path d="M-14 160 L190 154 L196 168 L-10 172Z" fill="#8fa3b1"/><path d="M-14 160 L190 154 L192 158 L-12 164Z" fill="#dfe8ee"/></g>';
+/* Supertrees */
+[[30,1.25],[78,1.6],[118,1.05],[372,1.4],[420,1],[455,1.2]].forEach(([x,s])=>{g+=`<use href="#tree" transform="translate(${x} 332) scale(${s})"/>`;});
+/* Merlion */
+g+='<g transform="translate(330 300)"><rect x="-10" y="18" width="34" height="14" fill="#d9d2c4"/><path d="M0 18 Q-4 -10 6 -22 Q18 -30 22 -16 Q26 0 18 18Z" fill="#f2ede4"/><path d="M6 -22 Q10 -34 20 -28 Q16 -20 22 -16Z" fill="#e1d8c8"/><path d="M-2 -14 Q-26 -10 -34 4" stroke="#bfe3f2" stroke-width="4" fill="none"/></g>';
+/* sea */
+g+='<rect x="0" y="330" width="1200" height="90" fill="url(#sea)"/>';
+for(let i=0;i<40;i++){const x=rnd()*1200,y=340+rnd()*70;g+=`<rect x="${x}" y="${y}" width="${20+rnd()*40}" height="2" fill="#ffffff" opacity=".25"/>`;}
+/* flight arc */
+g+='<path d="M380 140 Q600 30 840 120" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/><g class="plane"><path d="M-12 0 L12 0 M0 -9 L4 0 L0 9" stroke="#15181c" stroke-width="3" fill="none" stroke-linecap="round"><animateMotion dur="9s" repeatCount="indefinite" rotate="auto" path="M380 140 Q600 30 840 120"/></path></g>';
+/* Genting hills + cable car */
+g+='<path d="M860 330 Q960 150 1060 210 Q1130 170 1200 230 L1200 330Z" fill="#2f8a62"/><path d="M900 330 Q980 220 1060 250 Q1120 230 1200 270 L1200 330Z" fill="#0f6b4f"/><path d="M930 300 L1150 190" stroke="#15181c" stroke-width="1.5"/><rect x="1030" y="242" width="12" height="10" rx="2" fill="#ffc23d"/><rect x="1095" y="210" width="12" height="10" rx="2" fill="#d42330"/>';
+/* Petronas */
+const tower=x=>`<g transform="translate(${x} 0)"><path d="M0 330 L0 150 L6 132 L6 112 L12 100 L18 112 L18 132 L24 150 L24 330Z" fill="#d6dde3"/><path d="M12 100 L12 330 L24 330 L24 150 L18 132 L18 112Z" fill="#aab6bf"/><rect x="11" y="60" width="2" height="42" fill="#aab6bf"/></g>`;
+g+=tower(760)+tower(816)+'<rect x="784" y="200" width="32" height="6" fill="#aab6bf"/><path d="M784 206 L800 228 L816 206" stroke="#aab6bf" stroke-width="3" fill="none"/>';
+/* labels */
+g+='<g font-family="Outfit,sans-serif" font-weight="700" font-size="22" style="paint-order:stroke;stroke:#fff1dc;stroke-width:5px"><text x="40" y="132" fill="#d42330">Singapore</text><text x="1060" y="150" fill="#0f6b4f" text-anchor="middle">Kuala Lumpur</text></g>';
+sky.innerHTML=g;
+}
+</script>
+</body>
+</html>
