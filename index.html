@@ -95,6 +95,11 @@ td:first-child small{color:var(--soft)}
 .daypanel .box ul{margin:0;padding-left:18px;font-size:15px}
 .line .veg-tag{display:inline-block;margin-left:6px;font-size:12px;font-weight:700;color:#0f6b4f;background:#e6f3ee;padding:1px 7px;border-radius:99px;vertical-align:2px}
 @media(max-width:820px){.daypanel{grid-template-columns:minmax(0,1fr)}.daypanel .side,.daypanel .altwrap{grid-column:1;grid-row:auto}}
+.fsec{margin-top:26px}
+.fsec>h3{font-size:22px;margin-bottom:10px}
+.top{display:inline-block;margin-left:6px;font:700 12px Inter,sans-serif;background:var(--sun);color:#1a1a1a;padding:1px 8px;border-radius:99px;vertical-align:3px}
+.warn{color:#b3261e;font-weight:600}
+:root[data-theme=dark] .warn{color:#ff8a80}
 .veg{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px;margin-top:16px}
 .tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:12px 28px;margin-top:16px;padding:0;list-style:none}
 .tips li{border-top:2px solid var(--ink);padding-top:10px;font-size:15px}
@@ -115,7 +120,7 @@ footer{border-top:1px solid var(--line);font-size:14px;color:var(--soft)}
 <a class="m" href="#my-sights">Malaysia sights</a>
 <a class="m" href="#my-shop">Malaysia shopping</a>
 <a href="#niche">Niche picks</a>
-<a href="#veg">Vegetarian food</a>
+<a href="#veg">Food and desserts</a>
 <a href="#tips">Before you go</a>
 </div></nav>
 
@@ -209,12 +214,11 @@ footer{border-top:1px solid var(--line);font-size:14px;color:var(--soft)}
 </div></section>
 
 <section class="band" id="veg"><div class="wrap">
-<h2>Pure vegetarian, city by city</h2>
-<div class="veg">
-<div><h3 style="color:var(--sg)">Singapore</h3><div class="scroll"><table class="stack"><thead><tr><th>Place</th><th>Area</th><th>Order</th></tr></thead><tbody id="sgVeg"></tbody></table></div></div>
-<div><h3 style="color:var(--my)">Kuala Lumpur and Genting</h3><div class="scroll"><table class="stack"><thead><tr><th>Place</th><th>Area</th><th>Order</th></tr></thead><tbody id="myVeg"></tbody></table></div></div>
-</div>
-<p class="note">At Chinese hawker stalls look for the sign 素食 (vegetarian), say no egg and ask about fish sauce. Sentosa, Mandai and Genting have thin veg options, so carry snacks there.</p>
+<h2>Vegetarian food: local dishes, the best places and desserts</h2>
+<p style="color:var(--soft);margin-top:10px;max-width:66ch">Singapore and Malaysia both have vegetarian versions of almost every hawker classic, made with mock meat, tofu and mushrooms. Top picks are marked. Pick a city.</p>
+<div class="chips" id="foodTabs" role="tablist" aria-label="Choose a city"></div>
+<div id="foodPanel"></div>
+<p class="note">How to order safely: at Chinese stalls look for 素食 (vegetarian) and say "no egg". Ask about fish sauce, shrimp paste (belacan) and lard in sambal, kaya, yam paste and some kueh. Indian vegetarian restaurants are the easy, safe default. Sentosa, Mandai and Genting have thin veg options, so carry snacks there.</p>
 </div></section>
 
 <section class="band" id="tips"><div class="wrap">
@@ -342,6 +346,7 @@ const days=[
  ["10:00 am","Orchard Road","ION Orchard, then Ngee Ann City (Takashimaya) and Paragon. Hit Charles and Keith, Pedro and Love Bonito for local labels, then luxury and Kinokuniya."],
  ["12:30 pm","Lunch at Nalan, City Hall","South Indian thali or dosa. MRT from Orchard to City Hall.",1],
  ["1:30 pm","Bugis Street and Bugis Junction","Cheap clothes, bags and souvenirs, then local and high street brands."],
+ ["3:00 pm","Dessert at Ah Chew Desserts","Mango pomelo sago on Liang Seah St, a short walk from Bugis.",1],
  ["3:30 pm","The Shoppes at Marina Bay Sands","Luxury flagships, the indoor canal and the Apple sphere store. MRT to Bayfront."],
  ["4:30 pm","Cloud Forest with Jurassic World","Dinosaurs in the misty dome, then Flower Dome next door."],
  ["6:15 pm","Marina Bay Sands rooftop","SkyPark deck at sunset. Book the timed slot."],
@@ -356,8 +361,8 @@ const days=[
  ["9:30 am","Little India walk","Sri Veeramakaliamman Temple, Tekka Centre, the colourful House of Tan Teng Niah."],
  ["11:00 am","Kampong Gelam","Sultan Mosque and the murals and boutiques of Haji Lane."],
  ["12:45 pm","Lunch at MTR 1924","Rava idli and masala dosa. Closes mid afternoon, so do not be late.",1],
- ["2:30 pm","Chinatown","Buddha Tooth Relic Temple, Sri Mariamman Temple, the street market."],
- ["4:30 pm","Pinnacle@Duxton skybridge","Rooftop view over the city from public housing. Small fee."],
+ ["2:30 pm","Chinatown","Buddha Tooth Relic Temple, Sri Mariamman Temple, the street market. Chendol at Old Amoy Chendol in Chinatown Complex.",1],
+ ["4:30 pm","Pinnacle@Duxton skybridge","Rooftop view over the city from public housing. Small fee. Birds of Paradise gelato on Craig Rd is around the corner.",1],
  ["6:30 pm","Merlion Park","Sunset across the bay."],
  ["7:00 pm","River walk: Cavenagh Bridge to Boat Quay","Bronze river sculptures, then the old shophouse quay."],
  ["7:45 pm","Clarke Quay","Dinner by the river. Check menus for veg, or eat earlier in Chinatown.",1],
@@ -402,7 +407,7 @@ const days=[
  note:"If you pick this, keep Day 3 as the lighter Sentosa day so you are not doing the same island twice in a row. Night Safari can move to Day 3 evening instead of Wings of Time."}},
 {k:"m",d:"Day 5",t:"Jewel Changi, fly to KL, malls and Petronas",
  stops:[
- ["8:00 am","Jewel Changi","Rain Vortex and Canopy Park. Claim your GST refund before security."],
+ ["8:00 am","Jewel Changi","Rain Vortex and Canopy Park. Birds of Paradise has a Jewel outlet. Claim your GST refund before security."],
  ["11:00 am","Flight to Kuala Lumpur","About 1 hour in the air."],
  ["1:30 pm","KLIA Ekspres to KL Sentral","Fastest way in. Then a short Grab to Bukit Bintang."],
  ["2:30 pm","Lunch in Brickfields","Saravanaa Bhavan or Mr Naan and Mrs Idly, right by KL Sentral.",1],
@@ -415,7 +420,8 @@ const days=[
  cut:"Late flight? Skip Sungei Wang and go straight to Pavilion."},
 {k:"m",d:"Day 6",t:"Genting Highlands: SkyWorlds, outlets and old KL by night",
  stops:[
- ["8:00 am","Leave KL for Genting","About an hour by Grab to Awana SkyCentral. Eat breakfast first, veg food up top is thin.",1],
+ ["7:15 am","Breakfast at Blue Boy Mansion","Vegetarian nasi lemak or char kuey teow in Bukit Bintang. Opens 7:30 am.",1],
+ ["8:00 am","Leave KL for Genting","About an hour by Grab to Awana SkyCentral. Veg food up top is thin, so this is the big meal.",0],
  ["9:15 am","Awana SkyWay cable car up","10 minutes over the rainforest. Hop off at Chin Swee Caves Temple, then carry on to the top."],
  ["10:30 am","Genting SkyWorlds outdoor theme park","The big outdoor park at the top. Book online and use the SkyWorlds app for virtual queues. Reported closed on Tuesdays and when weather turns bad, so check."],
  ["1:00 pm","Lunch break","SkyAvenue mall next door. Check menus for veg, or carry food.",1],
@@ -424,7 +430,7 @@ const days=[
  ["4:45 pm","Genting Highlands Premium Outlets","130 plus designer brands at outlet prices. Open till 10 pm, so no rush."],
  ["7:00 pm","Back to KL","About an hour by Grab."],
  ["8:15 pm","River of Life at Masjid Jamek (niche)","Where KL began, lit blue at night with mist effects. Free."],
- ["8:45 pm","Kwai Chai Hong and Petaling Street","Mural lane, then the night market. Bargain hard."],
+ ["8:45 pm","Kwai Chai Hong and Petaling Street","Mural lane, then the night market with a bowl of cendol. Bargain hard.",1],
  ["9:15 pm","Dinner at The Hungry Tapir","Vegan Malaysian on Jalan Petaling. Closes around 10 pm.",1]],
  move:["Hire a Grab or a car with driver for the day; easier than the bus with shopping bags","Express bus from KL Sentral to Awana is the budget way"],
  cut:"Batu Caves did not fit with a full SkyWorlds day. Add it at 7:30 am on Day 5 if your flight lands early, or skip Kwai Chai Hong tonight. Flying out tonight? Go from the outlets straight to KLIA (about 1.5 to 2 hrs)."}
@@ -472,32 +478,77 @@ const myNiche=[
 ["KL Forest Eco Park","Canopy walk through jungle right below KL Tower.","Spare morning","Small fee"],
 ["Bank Negara Museum","Free museum of money and Malaysian art. Rain plan.","Rain plan","Free"]
 ];
-const sgVeg=[
-["Komala Vilas","Serangoon Rd, Little India","Paper thosai, ghee masala dosa. Since 1947"],
-["MTR 1924","438 Serangoon Rd","Rava idli, masala dosa"],
-["Ananda Bhavan","Syed Alwi Rd, opp Mustafa","South and North Indian. Open since 1924"],
-["Nalan","City Hall, Little India","Thali and dosa, central location"],
-["Saravanaa Bhavan","Little India","Mini tiffin, open late"],
-["Shivam","Little India","Gujarati thali"],
-["Whole Earth","Check current address","Plant based Peranakan and Thai, Michelin Bib Gourmand"]
-];
-const myVeg=[
-["Saravanaa Bhavan","Brickfields, Masjid India","South Indian staples"],
-["MTR 1924","Jalan Thambipillay, Brickfields","Same menu as back home"],
-["Mr Naan and Mrs Idly","Brickfields","Cheap, North and South Indian"],
-["Annalakshmi","Jalan Berhala, Brickfields","Indian vegetarian buffet"],
-["The Hungry Tapir","Jalan Petaling","Vegan Malaysian, right by the night market"],
-["Genting","Top and base","Few veg options. Eat before you go up"]
-];
+const food={
+sg:{name:"Singapore",col:"var(--sg)",
+dishes:[
+["Vegetarian laksa","Spicy coconut curry noodles, made without shrimp. Lotus Kitchen and the vegetarian stalls at Kim San Leng Food Centre are known for it.","Hawker or restaurant","Top"],
+["Vegetarian chicken rice","Fragrant rice with crispy beancurd skin 'chicken'. 33 Vegetarian Food in Ang Mo Kio made it famous.","Hawker","Top"],
+["Economic bee hoon","Fried rice vermicelli with your pick of sides, a classic breakfast. Ru Yi Yuan at Redhill Market is a favourite.","Hawker",""],
+["Masala dosa and thosai","Crisp South Indian crepes. Komala Vilas, MTR 1924 and Ananda Bhavan all do them well.","Little India","Top"],
+["Roti prata","Flaky griddle bread with curry. Ask for plain or onion and check the curry is the vegetable one.","Hawker",""],
+["Thali and banana leaf meals","Rice, dal, sabzi and papad on a banana leaf. Komala Vilas and Nalan for vegetarian.","Little India",""],
+["Mock meat 'char siew' rice","Sweet glazed mock pork over rice at Chinese vegetarian stalls.","Hawker",""],
+["Kaya toast","Breakfast toast with coconut jam. <span class=\"warn\">Kaya contains egg</span>, so skip if you avoid egg.","Kopitiam",""]],
+places:[
+["Komala Vilas","Serangoon Rd, Little India","Paper thosai, thali. Since 1947","Top"],
+["MTR 1924","438 Serangoon Rd","Rava idli, masala dosa","Top"],
+["Ananda Bhavan","Syed Alwi Rd, opp Mustafa","South and North Indian, open since 1924",""],
+["Nalan","City Hall, Little India","Thali and dosa, central location",""],
+["Saravanaa Bhavan","Little India","Mini tiffin, open late",""],
+["Shivam","Little India","Gujarati thali",""],
+["Whole Earth","Check current address","Plant based Peranakan and Thai, Michelin Bib Gourmand","Top"],
+["Lotus Kitchen","Check current outlet","Chinese vegetarian, stir fried laksa",""],
+["33 Vegetarian Food","Ang Mo Kio market","Vegetarian chicken rice. Out of the way, for fans",""],
+["Redhill Market","Redhill MRT","Cluster of vegetarian hawker stalls, cheap",""]],
+desserts:[
+["Ah Chew Desserts","Liang Seah St, Bugis. Fits Day 1","Mango pomelo sago and over 50 hot and cold dessert soups. <span class=\"warn\">Orh nee (yam paste) can contain lard, ask</span>.","Top"],
+["Birds of Paradise","Craig Rd near Pinnacle@Duxton, Katong, Jewel Changi","Michelin listed gelato in botanical flavours like white chrysanthemum, on a fresh thyme cone. Ask which flavours are egg free.","Top"],
+["Old Amoy Chendol","Chinatown Complex, level 2. Fits Day 2","Chendol: pandan jelly, red beans, coconut milk and gula melaka over shaved ice.",""],
+["Jin Jin Hot/Cold Dessert","ABC Brickworks Food Centre","Ice kachang piled with toppings. Durian version for the brave.",""],
+["Mei Heong Yuen","Chinatown","Snow ice and almond or peanut paste.",""],
+["Dessert First","Liang Seah St, Bugis","Late night Chinese desserts next to Ah Chew.",""]]},
+my:{name:"Kuala Lumpur and Genting",col:"var(--my)",
+dishes:[
+["Vegetarian nasi lemak","Coconut rice with vegetarian sambal, peanuts and curries. Blue Boy Mansion in Bukit Bintang is the go to.","Food court","Top"],
+["Vegetarian char kuey teow","Smoky wok fried flat noodles. The stall at Blue Boy Mansion has a cult following.","Food court","Top"],
+["Assam laksa and curry laksa","Sour tamarind or rich coconut noodle soups, vegetarian versions at Blue Boy.","Food court",""],
+["Banana leaf rice","Rice with vegetable curries, papadam and pickles on a leaf. Brickfields does the best.","Brickfields","Top"],
+["Roti canai and thosai","Flaky bread or crisp crepes with dal. Any Indian vegetarian restaurant.","Brickfields",""],
+["Chee cheong fun and popiah","Rice noodle rolls and fresh spring rolls. Check the popiah has no egg.","Food court",""],
+["Apam balik","Thick peanut pancake from night market stalls. <span class=\"warn\">Usually made with egg</span>.","Street",""]],
+places:[
+["Blue Boy Mansion","Jalan Tong Shin, Bukit Bintang","All vegetarian food court: nasi lemak, char kuey teow, laksa. 7:30 am to 9:30 pm","Top"],
+["Saravanaa Bhavan","Brickfields, Masjid India","South Indian staples",""],
+["MTR 1924","Jalan Thambipillay, Brickfields","Same menu as back home",""],
+["Mr Naan and Mrs Idly","Brickfields","Cheap, North and South Indian",""],
+["Annalakshmi","Jalan Berhala, Brickfields","Indian vegetarian buffet","Top"],
+["The Hungry Tapir","Jalan Petaling","Vegan Malaysian, right by the night market",""],
+["BMS Organics","Several malls","Mushroom nasi lemak with pumpkin and multigrain rice",""],
+["Genting","Top and base","Few veg options. Eat before you go up",""]],
+desserts:[
+["Kind Kones","Bangsar Village, Plaza Damansara, Mont Kiara","Malaysia's first vegan ice cream bar. Charcoal vanilla, salted choc chip.","Top"],
+["Inside Scoop","Bangsar and 20 plus outlets","KL's favourite ice cream. Durian and Valrhona chocolate. Ask about egg in some flavours.","Top"],
+["Cendol near Petaling Street","Chinatown","Street cendol with gula melaka. A stop on the Day 6 night walk.",""],
+["Kwong Wah ais kacang","Happy Mansion, Petaling Jaya","Ais kacang and cendol from a 60 year old recipe.",""],
+["Aunty Eng's cendol","Seksyen 17, Petaling Jaya","About 60 years of making ais kacang and cendol.",""]]}
+};
 const $=id=>document.getElementById(id);
 const line=a=>a.map(([t,b,s])=>`<li><time>${t}</time><div class="stop"><b>${b}</b><span>${s}</span></div></li>`).join('');
 const cards=a=>a.map(([h,p,c,d])=>`<div class="card"><h3>${h}</h3><p>${p}</p><div class="meta"><span class="pill">${c}</span><span class="pill">${d}</span></div></div>`).join('');
 const brands=a=>a.map(([b,s])=>`<div class="brand"><b>${b}</b><span>${s}</span></div>`).join('');
-const rows3=a=>a.map(([p,ar,o])=>`<tr><td><b>${p}</b></td><td data-l="Area">${ar}</td><td data-l="Order">${o}</td></tr>`).join('');
 $('sgLine').innerHTML=line(sgLine);$('myLine').innerHTML=line(myLine);$('gtLine').innerHTML=line(gtLine);
 $('sgMore').innerHTML=cards(sgMore);$('myMore').innerHTML=cards(myMore);
 $('sgBrands').innerHTML=`<div class="scroll"><table class="stack"><thead><tr><th>Brand</th><th>What to buy</th><th>Where</th><th>Why it is worth it</th></tr></thead><tbody>${sgBrands.map(([b,w,wh,y])=>`<tr><td><b>${b}</b></td><td data-l="Buy">${w}</td><td data-l="Where">${wh}</td><td data-l="Why">${y}</td></tr>`).join('')}</tbody></table></div>`;$('myBrands').innerHTML=brands(myBrands);
-$('sgVeg').innerHTML=rows3(sgVeg);$('myVeg').innerHTML=rows3(myVeg);
+let curFood='sg';
+const topTag=t=>t?'<span class="top">Top pick</span>':'';
+const showFood=k=>{curFood=k;const F=food[k];
+ $('foodTabs').innerHTML=Object.keys(food).map(x=>`<button type="button" role="tab" aria-selected="${x===k}" aria-pressed="${x===k}" data-k="${x}" style="--c:${food[x].col}">${food[x].name}</button>`).join('');
+ $('foodPanel').innerHTML=`<div class="fsec"><h3 style="color:${F.col}">Local dishes to try, vegetarian</h3><div class="cards">${F.dishes.map(([n,d,w,t])=>`<div class="card"><h3>${n}${topTag(t)}</h3><p>${d}</p><div class="meta"><span class="pill">${w}</span></div></div>`).join('')}</div></div>
+ <div class="fsec"><h3 style="color:${F.col}">Best vegetarian places</h3><div class="scroll"><table class="stack"><thead><tr><th>Place</th><th>Area</th><th>Order</th></tr></thead><tbody>${F.places.map(([p,a,o,t])=>`<tr><td><b>${p}${topTag(t)}</b></td><td data-l="Area">${a}</td><td data-l="Order">${o}</td></tr>`).join('')}</tbody></table></div></div>
+ <div class="fsec"><h3 style="color:${F.col}">Desserts</h3><div class="cards">${F.desserts.map(([n,w,d,t])=>`<div class="card"><h3>${n}${topTag(t)}</h3><p>${d}</p><div class="meta"><span class="pill">${w}</span></div></div>`).join('')}</div></div>`;
+};
+$('foodTabs').addEventListener('click',e=>{const b=e.target.closest('button');if(b)showFood(b.dataset.k)});
+showFood('sg');
 $('rvLine').innerHTML=line(rvLine);
 $('sgNiche').innerHTML=cards(sgNiche);
 $('sentosaZones').innerHTML=sentosa.map(z=>`<div class="zone"><h3>${z.z}</h3><p>${z.d}</p><div class="cards">${cards(z.items)}</div></div>`).join('');$('myNiche').innerHTML=cards(myNiche);
